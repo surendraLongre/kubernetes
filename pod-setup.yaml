@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-pod
+  labels:
+    app: frontend
+    project: infinity
+spec:
+  containers:
+    - name: httpd-container
+      image: httpd
+      ports:
+        - name: http-port
+          containerPort: 80

@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  MYSQL_DATABASE: accounts
+  MYSQL_ROOT_PASSWORD: secret
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: conf1
