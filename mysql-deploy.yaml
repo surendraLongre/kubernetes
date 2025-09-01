@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+spec:
+  template:
+    metadata:
+      name: mysql-pod-ignored-name
+      labels:
+        pod: mysql
+    spec:
+      containers:
+        - name: mysql-container
+          image: vprofilemkinko/mysql
+          ports:
+            - name: mysql-port
+              containerPort: 3306
+          volumeMounts:
+            - name: mysql-vol
+              mountPath: /var/lib/mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: pass
+      nodeSelector:
+        zone: us-east-1a
+      volumes:
+        - name: mysql-vol
+          awsElasticBlockStore:
+            volumeID: vol-0f29d482a3b2889c8
+            fsType: ext4
+#      initContainers:
+#        - name: volume-cleanup
+#          image: busybox:latest
+#          command: ["sh", "-c", "rm -rf /var/lib/mysql/*"]
+#          volumeMounts:
+#            - name: mysql-vol
+#              mountPath: /var/lib/mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: mysql

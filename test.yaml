@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+spec:
+  containers:
+    - name: alpine-contaienr
+      image: alpine
+      command: ["sleep","3600"]
+      volumeMounts:
+        - name: mysql-vol
+          mountPath: /data
+  nodeSelector:
+    zone: us-east-1a
+
+  volumes:
+    - name: mysql-vol
+      awsElasticBlockStore:
+        volumeID: vol-0f29d482a3b2889c8
+        fsType: ext4
