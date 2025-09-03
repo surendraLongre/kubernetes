@@ -78,7 +78,9 @@ pipeline {
 			}
 		}
 		stage('kubernetes deploy'){
-			agent { label: 'KOPS'}
+			agent { 
+				label 'KOPS'
+				}
 			steps{
 				sh "helm upgrade --install --force vprofile-stack helm/vprocharts --set appimage=${registry}:V${BUILD_NUMBER} -n production"
 			}
