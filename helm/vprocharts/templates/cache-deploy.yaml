@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache-deploy
+spec:
+  template:
+    metadata:
+      name: cache-ignored-pod
+      labels:
+        pod: cache
+    spec:
+      containers:
+        - name: cache-container
+          image: memcached
+          ports:
+            - name: cache-port
+              containerPort: 11211
+
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: cache

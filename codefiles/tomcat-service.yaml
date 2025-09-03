@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  type: LoadBalancer
+  ports:
+    - targetPort: tomcat-port
+      port: 8080
+  selector:
+    pod: tomcat

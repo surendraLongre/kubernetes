@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  template:
+    metadata:
+      name: tomcat-ignored-pod-name
+      labels:
+        pod: tomcat
+    spec:
+      containers:
+        - name: tomcat-container
+          image: vprofilemkinko/tomcat
+          ports:
+            - name: tomcat-port
+              containerPort: 8080
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: tomcat
