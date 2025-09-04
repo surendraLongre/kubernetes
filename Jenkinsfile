@@ -10,18 +10,18 @@ pipeline {
 
 	}
 	stages {
-		stage('build the fucking maven'){
+		stage('build the maven'){
 			steps{
 				sh 'mvn install -DskipTests'
 			} 
 			post {
 				success {
-					echo "Now archiving the fucking build"
+					echo "Now archiving the build"
 					archiveArtifacts artifacts: '**/target/*.war'
 				}
 			}
 		}
-		stage('test the fucking build'){
+		stage('test the build'){
 			steps{
 				sh 'mvn test'
 			}
